@@ -15,11 +15,12 @@ function showBooks() {
     }
 
     let addBook = "";
-    bookObj.forEach(function(item) {
+    bookObj.forEach(function(item,index) {
         addBook += `<tr class="table-success"">
                         <td>${item.name}</td>
                         <td>${item.author}</td>
                         <td>${item.category}</td>
+                        <td><button id = "${index}" onclick = "delBook(this.id)" class = "btn btn-primary"> Delete Book </button></td>
                     </tr>`
     });
 
@@ -31,6 +32,39 @@ function showBooks() {
     }
 }
 
+
+
+//Delting books form table
+function delBook(index) {
+    let getBooks = localStorage.getItem('books');
+    let bookObj;
+
+    if(getBooks == null) {
+        bookObj = [];
+    } else {
+        bookObj = JSON.parse(getBooks);
+    }
+
+    let bookName = bookObj[index].name;
+    bookObj.splice(index,1);
+
+    localStorage.setItem('books', JSON.stringify(bookObj));
+    let message = document.querySelector('#message');
+    let textBold = 'Sucessfully Deleted!!';
+
+    message.innerHTML =`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>${textBold}:</strong>${bookName} has been successfully removed form library..
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden = "true">x</span>
+                            </button>
+                        </div>`
+
+    setTimeout(() => {
+        message.innerHTML = "";
+    }, 5000);
+
+    showBooks();
+}
 
 
 //constructor
