@@ -20,7 +20,9 @@ function showBooks() {
                         <td>${item.name}</td>
                         <td>${item.author}</td>
                         <td>${item.category}</td>
-                        <td><button id = "${index}" onclick = "delBook(this.id)" class = "btn btn-primary"> Delete Book </button></td>
+                        <td>
+                            <button id = "${index}" onclick = "delBook(this.id)" type="button" class="btn btn-danger">Delete Book</button>
+                        </td>
                     </tr>`
     });
 
